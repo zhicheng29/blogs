@@ -1,24 +1,29 @@
+# 发布项目到自己的服务器上的配置
 name: Blog CI
-
+# on 表示触发actions的条件
 on:
     push:
-        branches: ['main']
-
-    workflow_dispatch:
+        branches: [main] #main分支在push的时候会触发
 
 jobs:
     build:
         runs-on: ubuntu-latest
 
         steps:
-            # 1. 拉取代码
-            - uses: actions/checkout@v3
-            # 2. 安装pnpm
-            - uses: pnpm/action-setup@v2.2.4
-              with:
-                  version: '7.9.0'
+            - uses: actions/checkout@v3 #拉取你的最新代码
 
-            # 3. 安装 依赖
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20.x' # 指定你的node版本
+
+            # 2. 安装pnpm
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: '8'
+
+            # 3. 安装依赖
             - name: Install pnpm dependencies
               run: pnpm install
 
@@ -39,4 +44,4 @@ jobs:
                   # Remote port
                   SOURCE: ./blog
                   # 部署路径
-                  TARGET: /usr/local/nginx/html/web
+                  TARGET: /usr/local/nginx/html
