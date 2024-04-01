@@ -1,83 +1,51 @@
-name: Deploy Pages
+name: blog
 
-# 触发条件，push到main分支或者pull request到main分支
 on:
     push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+        branches: ['main']
 
-    # 支持手动在工作流上触发
     workflow_dispatch:
 
-# 设置时区
 env:
     TZ: Asia/Shanghai
 
-# 定义执行任务
 jobs:
-    # 构建任务
     build:
         runs-on: ubuntu-latest
 
-        # node v20 运行
-        strategy:
-            matrix:
-                node-version: [20]
-
         steps:
-            # 拉取代码
-            - name: Checkout
-              uses: actions/checkout@v3
+            # 1. 拉取代码
+            - uses: actions/checkout@v3
               with:
                   # 保留 Git 信息
                   fetch-depth: 0
 
-            # 设置使用 Node.js 版本
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            # 使用 PNPM V8
+            # 2. 安装pnpm
             - uses: pnpm/action-setup@v2
               name: Install pnpm
               with:
                   version: 8
                   run_install: false
 
-              # 安装依赖
-            - name: Install dependencies
+            # 3. 安装 依赖
+            - name: Install pnpm dependencies
               run: pnpm install --frozen-lockfile
 
-              # 构建项目
-            - name: Build blog project
-              run: |
-                  echo ${{ github.workspace }}
-                  pnpm build
+            # 4. 打包
+            - name: Run build task
+              run: pnpm build
 
-              # 资源拷贝
-            - name: Build with Jekyll
-              uses: actions/jekyll-build-pages@v1
-              with:
-                  source: ./docs/.vitepress/dist
-                  destination: ./_site
-
-              # 上传 _site 的资源，用于后续部署
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
-
-            # 部署任务
+            # 5. 部署
             - name: Deploy to Server
               uses: easingthemes/ssh-deploy@v4.1.8
               with:
-              # 登陆的时候的 sshkey 密钥
-              SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-              # Remote host 服务器地址（外网IP）
-              REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-              # Remote user 用户
-              REMOTE_USER: ${{ secrets.REMOTE_USER }}
-              # Remote port
-              SOURCE: ./blog
-              # 部署路径
-              TARGET: /usr/local/nginx/html/web
+                  # 登陆的时候的 sshkey 密钥
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  # Remote host 服务器地址（外网IP）
+                  REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+                  # Remote user 用户
+                  REMOTE_USER: ${{ secrets.REMOTE_USER }}
+                  # Remote port
+                  SOURCE: ./blog
+                  # 部署路径
+                  TARGET: /usr/local/nginx/html/web
