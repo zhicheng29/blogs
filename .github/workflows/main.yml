@@ -4,26 +4,39 @@ on:
     push:
         branches: ['main']
 
+    workflow_dispatch:
+
 jobs:
     build:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@master
-            - name: Use Node.js 20.x
-              uses: actions/setup-node@v3
+            # 1. 拉取代码
+            - uses: actions/checkout@v3
+            # 2. 安装pnpm
+            - uses: pnpm/action-setup@v2.2.4
               with:
-                  node-version: 20.11.0
-                  cache: 'pnpm'
-            - run: pnpm install
-            - name: build project
-              run: pnpm build
+                  version: '8.15.1'
 
+            # 3. 安装 依赖
+            - name: Install pnpm dependencies
+              run: pnpm install
+
+            # 4. 打包
+            - name: Run build task
+              run: pnpm build:pro
+
+            # 5. 部署
             - name: Deploy to Server
-              uses: easingthemes/ssh-deploy@main
-              env:
-                  SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+              uses: easingthemes/ssh-deploy@v4.1.8
+              with:
+                  # 登陆的时候的 sshkey 密钥
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  # Remote host 服务器地址（外网IP）
                   REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+                  # Remote user 用户
                   REMOTE_USER: ${{ secrets.REMOTE_USER }}
-                  SOURCE: ./dist/
-                  TARGET: /usr/local/nginx/html/vue_pcera
+                  # Remote port
+                  SOURCE: ./blog
+                  # 部署路径
+                  TARGET: /usr/local/nginx/html
