@@ -16,7 +16,7 @@ jobs:
             # 2. 安装pnpm
             - uses: pnpm/action-setup@v2.2.4
               with:
-                  version: '8.15.1'
+                  version: '7.9.0'
 
             # 3. 安装 依赖
             - name: Install pnpm dependencies
@@ -27,8 +27,8 @@ jobs:
               run: pnpm build
 
             # 5. 部署
-            - name: Deploy to Server
-              uses: easingthemes/ssh-deploy@v4.1.8
+            - name: ssh deploy
+              uses: easingthemes/ssh-deploy@v5.0.3
               with:
                   # 登陆的时候的 sshkey 密钥
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
