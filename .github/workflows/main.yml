@@ -13,10 +13,11 @@ jobs:
         steps:
             # 1. 拉取代码
             - uses: actions/checkout@v3
+
             # 2. 安装pnpm
             - uses: pnpm/action-setup@v2.2.4
               with:
-                  version: '7.9.0'
+                  version: '8'
 
             # 3. 安装 依赖
             - name: Install pnpm dependencies
@@ -27,7 +28,7 @@ jobs:
               run: pnpm build
 
             # 5. 部署
-            - name: ssh deploy
+            - name: Deploy to Server
               uses: easingthemes/ssh-deploy@v5.0.3
               with:
                   # 登陆的时候的 sshkey 密钥
@@ -40,3 +41,11 @@ jobs:
                   SOURCE: ./blog
                   # 部署路径
                   TARGET: /usr/local/nginx/html
+                  ARGS: '-rlgoDzvc -i --delete'
+                  SCRIPT_BEFORE: |
+                      whoami
+                      ls -al
+                  SCRIPT_AFTER: |
+                      whoami
+                      ls -al
+                      echo $RSYNC_STDOUT
