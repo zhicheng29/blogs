@@ -1,4 +1,4 @@
-name: Pcerame CI
+name: Blog CI
 
 on:
     push:
