@@ -21,10 +21,10 @@ const blogTheme = getThemeConfig({
 	// * 友情链接
 	friend: [
 		{
-			nickname: 'Symbol',
+			nickname: 'wacko',
 			des: 'Strive To Be A Geek',
-			avatar: '/blog/logo.jpg',
-			url: 'https://github.com/Wzccccc',
+			avatar: '/logo.jpg',
+			url: 'https://github.com/zhicheng29',
 		},
 	],
 
@@ -58,7 +58,7 @@ export default defineConfig({
 		footer: {
 			message: '',
 			copyright:
-				'欢迎关注 | <a target="_blank" href="https://github.com/Wzccccc">@Symbol</a>',
+				'欢迎关注 | <a target="_blank" href="https://github.com/zhicheng29">@Symbol</a>',
 		},
 		logo: '/logo.jpg',
 		// 导航栏配置
