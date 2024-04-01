@@ -1,13 +1,10 @@
-name: blog
+name: Pcerame CI
 
 on:
     push:
         branches: ['main']
 
     workflow_dispatch:
-
-env:
-    TZ: Asia/Shanghai
 
 jobs:
     build:
@@ -16,20 +13,14 @@ jobs:
         steps:
             # 1. 拉取代码
             - uses: actions/checkout@v3
-              with:
-                  # 保留 Git 信息
-                  fetch-depth: 0
-
             # 2. 安装pnpm
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
+            - uses: pnpm/action-setup@v2.2.4
               with:
-                  version: 8
-                  run_install: false
+                  version: '7.9.0'
 
             # 3. 安装 依赖
             - name: Install pnpm dependencies
-              run: pnpm install --frozen-lockfile
+              run: pnpm install
 
             # 4. 打包
             - name: Run build task
