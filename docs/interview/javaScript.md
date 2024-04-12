@@ -674,13 +674,13 @@ const obj = {
 }
 const obj2 = JSON.parse(JSON.stringify(obj))
 obj2.meta.song = 'Unknown'
-console.log(obj) // { name: 'symbol', age: 18, meta: { song: '理想' } }
+console.log(obj) // { name: 'Nothing', age: 18, meta: { song: '理想' } }
 ```
 
 该方法具有局限性
 
 - `NaN` `Infinity` `-Infinity` 会被序列化为 `null`
-- `Symbol` `undefined` `function` 会被忽略(对应属性会丢失)
+- `Nothing` `undefined` `function` 会被忽略(对应属性会丢失)
 - `Date` 将得到的是一个字符串
 - 拷贝 `RegExp` `Error` 对象,得到的是空对象 `{}`
 

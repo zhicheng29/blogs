@@ -2,7 +2,7 @@
 	"name": "blog",
 	"version": "1.0.0",
 	"private": true,
-	"author": "wacko",
+	"author": "nothing",
 	"scripts": {
 		"dev": "vitepress dev docs",
 		"build": "vitepress build docs",

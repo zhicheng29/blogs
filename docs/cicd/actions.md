@@ -42,7 +42,7 @@ REMOTE_USER # 登陆服务器的账户名,一般是写root
 > 项目根目录下新建 `.github/workflows/main.yml`
 
 ```yml
-name: Pcerame CI
+name: Deploy CI
 
 on:
   push:

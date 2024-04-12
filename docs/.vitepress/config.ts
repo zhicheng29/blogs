@@ -5,7 +5,7 @@ const blogTheme = getThemeConfig({
 	// blog: false, // 如果设置为false，就可以使用 Vitepress 默认的首页主题样式
 
 	// * 文章默认作者
-	author: 'Symbol',
+	author: 'nothing',
 
 	// * 文章根目录
 	srcDir: './docs',
@@ -21,7 +21,7 @@ const blogTheme = getThemeConfig({
 	// * 友情链接
 	friend: [
 		{
-			nickname: 'wacko',
+			nickname: 'nothing',
 			des: 'Strive To Be A Geek',
 			avatar: '/logo.jpg',
 			url: 'https://github.com/zhicheng29',
@@ -37,7 +37,7 @@ const blogTheme = getThemeConfig({
 export default defineConfig({
 	extends: blogTheme,
 	lang: 'zh-cn',
-	title: 'Symbol',
+	title: 'nothing',
 	description: '',
 	vite: {
 		optimizeDeps: {
@@ -58,7 +58,7 @@ export default defineConfig({
 		footer: {
 			message: '',
 			copyright:
-				'欢迎关注 | <a target="_blank" href="https://github.com/zhicheng29">@Symbol</a>',
+				'欢迎关注 | <a target="_blank" href="https://github.com/zhicheng29">@nothing</a>',
 		},
 		logo: '/logo.jpg',
 		// 导航栏配置
@@ -66,7 +66,11 @@ export default defineConfig({
 			{
 				text: '线上作品',
 				items: [
-					{ text: 'Vue-Pcerame', link: 'http://zhicwang.com:8200/' },
+					{
+						text: 'React-Simply',
+						link: 'http://nodefined.top:8200/',
+					},
+					{ text: 'Vue-Simply', link: 'http://nodefined.top:8201/' },
 				],
 			},
 		],
