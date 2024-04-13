@@ -70,7 +70,7 @@ export default defineConfig({
 						text: 'React-Simply',
 						link: 'http://nodefined.top:8200/',
 					},
-					{ text: 'Vue-Simply', link: 'http://nodefined.top:8201/' },
+					// { text: 'Vue-Simply', link: 'http://nodefined.top:8201/' },
 				],
 			},
 		],
