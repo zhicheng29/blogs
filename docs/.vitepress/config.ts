@@ -39,7 +39,6 @@ export default defineConfig({
 	lang: 'zh-cn',
 	title: 'nothing',
 	description: '',
-	cleanUrls: true,
 	vite: {
 		optimizeDeps: {
 			include: ['element-plus'],
