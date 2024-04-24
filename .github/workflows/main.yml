@@ -1,5 +1,8 @@
 name: Deploy CI
 
+env:
+    TZ: Asia/Shanghai
+
 on:
     push:
         branches: ['main']
