@@ -2,12 +2,13 @@
 description: TitHub actions  与服务器时区不一致
 # 标签
 tag:
-  - Git
+    - Git
 tags:
-  - Github
+    - Github
 categories:
-  - Linux
+    - Linux
 
+date: 2023-07-25 10:12:00
 outline: [2, 3]
 ---
 
@@ -21,7 +22,7 @@ outline: [2, 3]
 ```yml
 # 设置时区
 env:
-  TZ: Asia/Shanghai
+    TZ: Asia/Shanghai
 ```
 
 再在服务器中设置对应的时区

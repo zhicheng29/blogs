@@ -4,10 +4,11 @@ description: Vue 常见问题
 
 # 标签
 tag:
-  - Vue
+    - Vue
 
+date: 2023-08-14 19:11:00
 # 取二三级标题生成目录
-outline: [ 1, 2 ]
+outline: [1, 2]
 ---
 
 # Vue 常见问题
@@ -36,70 +37,70 @@ outline: [ 1, 2 ]
 
 **`get`** 方法: 用于拦截对象的读取操作
 
-- `target`: 目标对象
-- `property`: 被获取的属性名
-- `receiver`: `Proxy` 或者继承 `Proxy` 的对象(最初被调用的对象)
+-   `target`: 目标对象
+-   `property`: 被获取的属性名
+-   `receiver`: `Proxy` 或者继承 `Proxy` 的对象(最初被调用的对象)
 
 ```js
 let original = {
-    a: 1,
-    b: 2,
-}
+	a: 1,
+	b: 2,
+};
 let p = new Proxy(original, {
-    get: function (target, property, receiver) {
-        delete target.b
-        console.log(target, property, receiver) // { a: 1 } a { a: 1 }
-        return target.a
-    },
-})
-console.log(p.a) // 1
-console.log(p) // { a: 1 } 不会触发 get 函数
-console.log(original) // { a: 1 }
+	get: function (target, property, receiver) {
+		delete target.b;
+		console.log(target, property, receiver); // { a: 1 } a { a: 1 }
+		return target.a;
+	},
+});
+console.log(p.a); // 1
+console.log(p); // { a: 1 } 不会触发 get 函数
+console.log(original); // { a: 1 }
 ```
 
 **`set`** 方法: 用于拦截设置属性值的操作
 
-- `target`: 目标对象
-- `property`: 被获取的属性名
-- `receiver`: `Proxy` 或者继承 `Proxy` 的对象(最初被调用的对象)
+-   `target`: 目标对象
+-   `property`: 被获取的属性名
+-   `receiver`: `Proxy` 或者继承 `Proxy` 的对象(最初被调用的对象)
 
 ```js
-const monster = {eyeCount: 4, earCount: 2}
+const monster = { eyeCount: 4, earCount: 2 };
 
 const proxyObj = new Proxy(monster, {
-    set(target, porterty, receiver) {
-        if (porterty === 'eyeCount' && receiver % 2 !== 0) {
-            console.log('Monsters must have an even number of eyes')
-        } else {
-            return Reflect.set(target, porterty, receiver)
-        }
-    },
-})
+	set(target, porterty, receiver) {
+		if (porterty === 'eyeCount' && receiver % 2 !== 0) {
+			console.log('Monsters must have an even number of eyes');
+		} else {
+			return Reflect.set(target, porterty, receiver);
+		}
+	},
+});
 
 // 并未重新设置 eyeCount 的值
-proxyObj.eyeCount = 1 // Monsters must have an even number of eyes
-console.log(monster) // { eyeCount: 4, earCount: 2 }
-console.log(proxyObj.eyeCount) // 4
+proxyObj.eyeCount = 1; // Monsters must have an even number of eyes
+console.log(monster); // { eyeCount: 4, earCount: 2 }
+console.log(proxyObj.eyeCount); // 4
 
-proxyObj.eyeCount = 6
-console.log(monster) // { eyeCount: 6, earCount: 2 }
-console.log(proxyObj.eyeCount) // 6
+proxyObj.eyeCount = 6;
+console.log(monster); // { eyeCount: 6, earCount: 2 }
+console.log(proxyObj.eyeCount); // 6
 ```
 
 **`deletePorperty`** 方法: 用于拦截对象属性的 `delete` 操作
 
-- `target`: 目标对象
-- `porperty`: 待删除的属性名
+-   `target`: 目标对象
+-   `porperty`: 待删除的属性名
 
 ```js
 let p = new Proxy(
-    {},
-    {
-        deleteProperty(target, porperty) {
-            console.log(target, porperty)
-            return true
-        },
-    }
-)
-delete p.a // {} a
+	{},
+	{
+		deleteProperty(target, porperty) {
+			console.log(target, porperty);
+			return true;
+		},
+	}
+);
+delete p.a; // {} a
 ```

@@ -3,8 +3,9 @@
 description: 将个人前端项目部署到服务器
 # 标签
 tag:
-  - Nginx
+    - Nginx
 
+date: 2023-10-22 21:43:00
 outline: [2, 3]
 ---
 

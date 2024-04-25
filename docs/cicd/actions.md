@@ -2,12 +2,13 @@
 description: Github 构建CI/CD自动部署
 # 标签
 tag:
-  - CICD
+    - CICD
 tags:
-  - Github
+    - Github
 categories:
-  - Nginx
+    - Nginx
 
+date: 2023-06-11 18:22:00
 outline: [2, 3]
 ---
 
@@ -45,43 +46,43 @@ REMOTE_USER # 登陆服务器的账户名,一般是写root
 name: Deploy CI
 
 on:
-  push:
-    branches: ['main']
+    push:
+        branches: ['main']
 
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-      # 1. 拉取代码
-      - uses: actions/checkout@v3
-      # 2. 安装pnpm
-      - uses: pnpm/action-setup@v2.2.4
-        with:
-          version: '7.9.0'
+        steps:
+            # 1. 拉取代码
+            - uses: actions/checkout@v3
+            # 2. 安装pnpm
+            - uses: pnpm/action-setup@v2.2.4
+              with:
+                  version: '7.9.0'
 
-      # 3. 安装 依赖
-      - name: Install pnpm dependencies
-        run: pnpm install
+            # 3. 安装 依赖
+            - name: Install pnpm dependencies
+              run: pnpm install
 
-      # 4. 打包
-      - name: Run build task
-        run: pnpm build:pro
+            # 4. 打包
+            - name: Run build task
+              run: pnpm build:pro
 
-      # 5. 部署
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@v4.1.8
-        with:
-          # 登陆的时候的 sshkey 密钥
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Remote host 服务器地址（外网IP）
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          # Remote user 用户
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          # Remote port
-          SOURCE: ./dist
-          # 部署路径
-          TARGET: /usr/local/nginx/html/文件夹名称
+            # 5. 部署
+            - name: Deploy to Server
+              uses: easingthemes/ssh-deploy@v4.1.8
+              with:
+                  # 登陆的时候的 sshkey 密钥
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  # Remote host 服务器地址（外网IP）
+                  REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+                  # Remote user 用户
+                  REMOTE_USER: ${{ secrets.REMOTE_USER }}
+                  # Remote port
+                  SOURCE: ./dist
+                  # 部署路径
+                  TARGET: /usr/local/nginx/html/文件夹名称
 ```

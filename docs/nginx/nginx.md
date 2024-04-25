@@ -3,8 +3,9 @@
 description: 个人服务器 Nginx 配置及搭建
 # 标签
 tag:
-  - Nginx
+    - Nginx
 
+date: 2023-10-21 21:12:00
 outline: [2, 3]
 ---
 

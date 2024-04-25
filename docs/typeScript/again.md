@@ -6,6 +6,8 @@ description: 进阶版
 tag:
   - TypeScript
 
+date: 2023-12-27 20:52:00
+
 outline: [2, 3]
 ---
 

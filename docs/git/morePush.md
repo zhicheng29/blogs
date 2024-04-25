@@ -2,10 +2,11 @@
 description: 如何将代码推送至 Github 和 Gitee仓库
 # 标签
 tag:
-  - Git
+    - Git
 tags:
-  - Github
+    - Github
 
+date: 2023-07-27 15:52:00
 outline: [2, 3]
 ---
 
