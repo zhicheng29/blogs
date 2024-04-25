@@ -26,7 +26,7 @@
 # cover:
 
 # 用于设置文章是否出现在首页的列表里
-hidden: false
+# hidden: false
 # 单独设置是否展示文章的预计阅读时间
 # readingTime: false
 

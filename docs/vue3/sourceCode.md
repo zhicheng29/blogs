@@ -35,7 +35,7 @@ outline: [2, 3]
 > 2. 渲染器
 > 3. 解析器
 
-### 解析器
+## 解析器
 
 **编译**
 
@@ -56,7 +56,7 @@ sfc = 单文件组件(.vue 文件)
 -   runtime-core 生命周期, diff 算法 deng
 -   runtime-dom 浏览器运行,dom api、属性、事件处理
 
-### 响应式(Proxy)
+## 响应式(Proxy)
 
 **为什么要换成 object.defienProperty**
 
@@ -82,7 +82,7 @@ sfc = 单文件组件(.vue 文件)
 1. Vue3 中代理对象的 set 更新依赖的时候需要一个布尔返回值,Reflect.set 返回的是 也是一个布尔值
 2. 代理对象和 Reflect 对象可以相互调用
 
-#### effect 副作用函数
+### effect 副作用函数
 
 > 什么是 effect 副作用函数以及作用,纯函数的区别?
 
@@ -122,7 +122,7 @@ let targetMap = new WeakMap();
 
 3. 收集依赖
 
-在 Proxy 的 get 拦截函数中收集依赖,
+在 Proxy 的 get 拦截函数中收集依赖
 
 ```js
 export const tracker = (target, key) => {
@@ -157,7 +157,7 @@ export const trigger = (target, key) => {
 
 ![](/vue3/effect.png)
 
-#### reactive 原理
+### reactive 原理
 
 ```js
 export const reactive = <T extends object>(value: T) => {
@@ -183,7 +183,7 @@ export const reactive = <T extends object>(value: T) => {
 
 ![](/vue3/reactive.png)
 
-#### computed 原理
+### computed 原理
 
 > computed 与 effect 是相似的,基本一样,只不过 computed 多了一个返回值
 
@@ -287,7 +287,7 @@ export const trigger = (target, key) => {
 
 ![](/vue3/computed.png)
 
-#### watch 原理
+### watch 原理
 
 ```js
 import { effect } from './effect';
@@ -330,4 +330,44 @@ export const watch = (target: any, cb: Function, options?: Options) => {
     oldVal = effectFn()
   }
 };
+```
+
+### ref 原理
+
+> 实际上当 ref 为一个对象是使用的也是 reactive
+> 拦截一下 value 收集依赖与更新依赖
+
+```js
+import { reactive } from './reactive';
+import { tracker, trigger } from './effect';
+
+const isObject = (value) => {
+	return value !== null && typeof value === 'object';
+};
+
+// ref 如果使用的是引用类型,调的也是 reactive
+const toReactive = (value) => {
+	return isObject(value) ? reactive(value) : value;
+};
+
+export const ref = <T>(value: T) => {
+	return new RefEml<T>(value);
+};
+
+class RefEml<T> {
+	private _value: T;
+	constructor(value) {
+		this._value = toReactive(value);
+	}
+	get value(): T {
+		tracker(this, 'value');
+		return this._value;
+	}
+	set value(value) {
+		if (value === this._value) return;
+		this._value = toReactive(value);
+		trigger(this, 'value');
+	}
+}
+
 ```

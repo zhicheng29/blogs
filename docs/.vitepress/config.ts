@@ -64,13 +64,21 @@ export default defineConfig({
 		// 导航栏配置
 		nav: [
 			{
+				text: '手撕源码',
+				items: [
+					{
+						text: 'Vue3源码',
+						link: '/vue3/sourceCode.md',
+					},
+				],
+			},
+			{
 				text: '线上作品',
 				items: [
 					{
 						text: 'React-Simply',
 						link: 'http://nodefined.top:8200/',
 					},
-					// { text: 'Vue-Simply', link: 'http://nodefined.top:8201/' },
 				],
 			},
 		],
